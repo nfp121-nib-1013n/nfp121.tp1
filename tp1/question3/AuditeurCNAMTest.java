@@ -110,8 +110,7 @@ public class AuditeurCNAMTest extends junit.framework.TestCase {
                 "max", "12345");
         assertEquals("Mr Te-Te max ", "Te-Te", auditeur1.nom());
         assertEquals("Mr Te-Te max ", "max", auditeur1.prenom());
-        assertEquals("nom court avec particules ? ", "te_te_m",
-            auditeur1.login());
+        assertEquals("nom court avec particules ? ", "te_te_m", auditeur1.login());
     }
 
     public void test_nom_avec_accent() {
@@ -119,7 +118,22 @@ public class AuditeurCNAMTest extends junit.framework.TestCase {
                 "chloé", "12345");
         assertEquals("Mme Chloé chloé ", "Chloé", auditeur1.nom());
         assertEquals("Mme Chloé chloé ", "chloé", auditeur1.prenom());
-        assertEquals(" nom avec accent (é devient e) ? ", "chloe_c",
-            auditeur1.login());
+        assertEquals(" nom avec accent (é devient e) ? ", "chloe_c", auditeur1.login());
     }
+    public void test_avec_pointvirgule() {
+        question3.AuditeurCNAM auditeur1 = new question3.AuditeurCNAM("Chlo;",
+                "chlo;", "12345");
+        assertEquals("Mme Chlo; chlo; ", "Chlo;", auditeur1.nom());
+        assertEquals("Mme Chlo; chlo; ", "chlo;", auditeur1.prenom());
+        assertEquals(" pointvirgule (; devient _) ? ", "chlo__c", auditeur1.login());
+    }
+    
+    public void test_avec_parenthese() {
+        question3.AuditeurCNAM auditeur1 = new question3.AuditeurCNAM("Chlo)",
+                "chlo)", "12345");
+        assertEquals("Mme Chlo) chlo) ", "Chlo)", auditeur1.nom());
+        assertEquals("Mme Chlo) chlo) ", "chlo)", auditeur1.prenom());
+        assertEquals(" parenthese () devient _) ? ", "chlo__c", auditeur1.login());
+    }
+    
 }
